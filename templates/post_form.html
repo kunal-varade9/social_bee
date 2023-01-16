@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add your post</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{url_for('home')}}">SocialBee</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    {% if u_id %}
+                        <a class="nav-link" href="">Logout</a>
+                    {% else %}
+                    <a class="nav-link" href="">Login</a>
+                    {% if not register %}<a class="nav-link register" href="{{url_for('register')}}">Register<span
+                            class="new">New</span></a>{% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <form {% if post %} action="/update_post?p_id={{post[0]}}&u_id={{u_id}}" {% else %} action="/add_post?u_id={{u_id}}" {% endif %}  method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Post:</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name='post' rows="3">{% if post %}{{post[1]}}{% endif %}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Upload a image</label>
+                        <input class="form-control" type="file" id="formFile" name="image">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            {% if not post %}<input type="submit" value="Add">{% else %}<input type="submit" value="Update">{% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

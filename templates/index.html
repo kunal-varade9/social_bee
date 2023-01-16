@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{url_for('home')}}">SocialBee</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/login_form">Login</a>
+                    <a class="nav-link register" href="{{url_for('register')}}">Register<span class="new">New</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                {% for post in posts %}
+                <div class="card mb-3">
+                    <img src="/static/images/posts/{{post[3]}}_{{post[0]}}_{{post[-2]}}" class="card-img-top post-image" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">posted by {{post[-1]}}</h5>
+                        <p class="card-text">{{post[1]}}</p>
+                        <p class="card-text"><small class="text-muted">{{post[-3] | striptime }}</small></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+</body>
+
+</html>
